@@ -1,0 +1,33 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: doctor
+  labels:
+    app: doctor
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: doctor
+  template:
+    metadata:
+      labels:
+        app: doctor
+    spec:
+      containers:
+        - name: doctor
+          image: "coeus77/doctor:latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: doctor-app-port
+              containerPort: 5000
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+
